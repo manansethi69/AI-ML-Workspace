@@ -1,50 +1,53 @@
-# AI News Aggregator - Live Build Repository
+# AI News Aggregator
 
-This repository accompanies my 3-hour live coding session where I build a complete AI-powered news aggregator from scratch. This is a **private repository** containing valuable implementation details and deployment strategies used in production environments.
+An end‑to‑end **GenAI application** that collects AI news from multiple sources (YouTube, blogs, RSS), summarizes it with LLMs, stores everything in Postgres, and sends you a personalized daily email digest.[web:63][web:70]
 
-## Project Structure
+---
 
-This project is organized across three branches, each corresponding to a different phase of the build:
 
-- **`master`** - Part 1: Local setup and core functionality
-- **`deployment`** - Part 2: Deployment configuration and infrastructure
-- **`deployment-final`** - Part 3: Final optimizations and production-ready changes
+## Features
 
-Each branch serves as an intermediate checkpoint, allowing you to reference the exact state of the codebase at any point during the video.
+- **Multi‑source scraping pipeline**  
+  - YouTube channels via RSS + `youtube-transcript-api` for transcripts.  
+  - AI blogs (e.g., OpenAI, Anthropic) and custom RSS feeds.[web:63]  
 
-## How This Video Works
+- **LLM‑powered summarization and ranking**  
+  - Uses OpenAI models to summarize articles and rank them based on a user profile / system prompt.[web:63][web:69]  
 
-This is a **live coding build**, not a traditional step-by-step tutorial. Here's what to expect:
+- **Postgres‑backed storage**  
+  - Stores sources, articles, transcripts, and generated digests using SQLAlchemy models.[web:63]  
 
-- **Fast-paced development** - I code at my natural pace, leveraging AI tools extensively
-- **AI-assisted workflow** - You won't see every code snippet or file generation in real-time
-- **Real-world approach** - This condenses 20-40 hours of learning into a single session
-- **Not cookie-cutter** - Unlike structured tutorials, this reflects how coding actually happens in practice
+- **Daily digest email**  
+  - Scheduled job runs every 24 hours, builds a digest in Markdown/HTML, and emails it to the configured recipients.[web:63]  
 
-## How to Follow Along
+- **Docker & production‑ready deployment**  
+  - Docker Compose for local dev and a Render‑compatible setup for production hosting and scheduling.[web:63][web:70]  
 
-### Recommended Approach (Maximum Learning)
+---
 
-1. **Clone this repository** before starting the video
-2. **Keep a local copy ready** on your system as you code along
-3. **Use intermediate checkpoints** - When I make major updates or run tests, pause and:
-   - Reference the corresponding branch in this repository
-   - Copy relevant code snippets into your project
-   - Use AI coding assistants to help you reach the same checkpoint
-4. **Iterate step-by-step** - Don't rush ahead. Ensure each phase works before moving forward
-5. **Expect confusion** - Some parts will move fast and may not be immediately clear. This is where real learning happens
+## Architecture
 
-### Alternative Approach (Not Recommended)
+At a high level, the system:
 
-You can skip ahead to the `deployment-final` branch and try to get everything working, but you'll miss the iterative problem-solving process that makes this valuable.
+1. **Scrapes sources** (YouTube, blogs, RSS) and normalizes them into `Article` objects.[web:63]  
+2. **Stores raw and processed content** in Postgres (via SQLAlchemy).[web:63]  
+3. **Runs an LLM “aggregator agent”** that:
+   - Clusters and ranks articles.
+   - Produces a personalized daily digest.[web:63]  
+4. **Sends the digest via email** through a simple email service abstraction.[web:63]  
+5. **Runs on a schedule** (cron / Render job) for full automation.[web:63][web:70]  
 
-## Why This Approach?
+---
 
-Traditional tutorials show you the "right way" to do things. This video shows you the **real way** - with AI assistance, rapid iteration, debugging, and adapting on the fly. By following along and hitting the same checkpoints, you'll:
+## Tech Stack
 
-- Learn how to effectively leverage AI coding tools
-- Understand the thought process behind architectural decisions
-- Experience real-world development workflows
-- Build muscle memory through hands-on practice
+- **Language**: Python  
+- **AI / LLMs**: OpenAI API (chat + embeddings).[web:63][web:69]  
+- **Database**: Postgres (local Docker container + managed DB in production).[web:63][web:70]  
+- **ORM**: SQLAlchemy.[web:63]  
+- **Scraping**: RSS feeds, HTTP clients.[web:63]  
+- **Infra & Dev**: Docker, Docker Compose, uv / pyproject‑based dependency management.[web:63][web:69]  
+- **Deployment**: Render Web Service + Render Cron Job.[web:63][web:70]  
+
 
 **The most valuable learning happens when you struggle, reference the code, and push through to the next checkpoint.**
