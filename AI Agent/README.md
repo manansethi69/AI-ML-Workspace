@@ -5,21 +5,6 @@ It demonstrates how to wire a ReAct-style agent to Python tools (a calculator an
 
 ---
 
-## Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Environment Variables](#environment-variables)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Extending the Agent](#extending-the-agent)
-- [License](#license)
-
----
-
 ## Features
 
 - ReAct-style agent created via `create_react_agent` from LangGraph.[web:3][web:16][web:36]  
